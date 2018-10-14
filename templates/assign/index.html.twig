@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello {{ controller_name }}!{% endblock %}
+{% block title %}Assign index{% endblock %}
 
 {% block body %}
 <style>
@@ -8,13 +8,63 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>People</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'src/Controller/AssignController.php'|file_link(0) }}">src/Controller/AssignController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'templates/assign/index.html.twig'|file_link(0) }}">templates/assign/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Is_postgrad</th>
+                <th>Can_drive</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for person in people %}
+            <tr>
+                <td>{{ person.id }}</td>
+                <td>{{ person.name }}</td>
+                <td>{{ person.gender }}</td>
+                <td>{{ person.isPostgrad ? 'Yes' : 'No' }}</td>
+                <td>{{ person.canDrive ? 'Yes' : 'No' }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('person_index') }}">Edit people</a>
+
+    <h1>Teams</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Start_time</th>
+                <th>End_time</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for team in teams %}
+            <tr>
+                <td>{{ team.id }}</td>
+                <td>{{ team.name }}</td>
+                <td>{{ team.startTime ? team.startTime|date('H:i:s') : '' }}</td>
+                <td>{{ team.endTime ? team.endTime|date('H:i:s') : '' }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('team_index') }}">Edit teams</a>
+
 {% endblock %}
