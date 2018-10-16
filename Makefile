@@ -1,8 +1,11 @@
 run: start-mysql
 	php bin/console server:run
 
-start-mysql:
+create-mysql:
 	sh bin/start-mysql.sh
+
+start-mysql:
+	docker start allocate_mysql
 
 stop-mysql:
 	docker stop allocate_mysql
