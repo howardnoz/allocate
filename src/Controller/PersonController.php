@@ -75,6 +75,12 @@ class PersonController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            foreach($teams as $team) {
+                $team->removePerson($person);
+            }
+            foreach($person->getTeams() as $team) {
+                $team->addPerson($person);
+            }
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('person_edit', ['id' => $person->getId()]);
