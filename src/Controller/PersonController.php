@@ -39,6 +39,9 @@ class PersonController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            foreach($person->getTeams() as $team) {
+                $team->addPerson($person);
+            }
             $em->persist($person);
             $em->flush();
 
