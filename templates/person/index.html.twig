@@ -13,6 +13,7 @@
                 <th>Gender</th>
                 <th>Is_postgrad</th>
                 <th>Can_drive</th>
+                <th>Teams</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -24,6 +25,11 @@
                 <td>{{ person.gender }}</td>
                 <td>{{ person.isPostgrad ? 'Yes' : 'No' }}</td>
                 <td>{{ person.canDrive ? 'Yes' : 'No' }}</td>
+                <td>
+                    {% for team in person.getTeams %}
+                        {{ team }}
+                    {% endfor %}
+                </td>
                 <td>
                     <a href="{{ path('person_show', {'id': person.id}) }}">show</a>
                     <a href="{{ path('person_edit', {'id': person.id}) }}">edit</a>

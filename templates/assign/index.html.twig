@@ -15,9 +15,7 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
-                <th>Gender</th>
-                <th>Is_postgrad</th>
-                <th>Can_drive</th>
+                <th>Teams</th>
             </tr>
         </thead>
         <tbody>
@@ -25,9 +23,11 @@
             <tr>
                 <td>{{ person.id }}</td>
                 <td>{{ person.name }}</td>
-                <td>{{ person.gender }}</td>
-                <td>{{ person.isPostgrad ? 'Yes' : 'No' }}</td>
-                <td>{{ person.canDrive ? 'Yes' : 'No' }}</td>
+                <td>
+                    {% for team in person.getTeams %}
+                        {{ team }}
+                    {% endfor %}
+                </td>
             </tr>
         {% else %}
             <tr>
@@ -44,8 +44,7 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
-                <th>Start_time</th>
-                <th>End_time</th>
+                <th>People</th>
             </tr>
         </thead>
         <tbody>
@@ -53,8 +52,11 @@
             <tr>
                 <td>{{ team.id }}</td>
                 <td>{{ team.name }}</td>
-                <td>{{ team.startTime ? team.startTime|date('H:i:s') : '' }}</td>
-                <td>{{ team.endTime ? team.endTime|date('H:i:s') : '' }}</td>
+                <td>
+                    {% for person in team.getPerson %}
+                        {{ person }}
+                    {% endfor %}
+                </td>
             </tr>
         {% else %}
             <tr>

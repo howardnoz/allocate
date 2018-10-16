@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\TeamRepository;
 
 /**
  * @Route("/person")
@@ -26,10 +27,14 @@ class PersonController extends AbstractController
     /**
      * @Route("/new", name="person_new", methods="GET|POST")
      */
-    public function new(Request $request): Response
+    public function new(Request $request, TeamRepository $teamRepository): Response
     {
         $person = new Person();
         $form = $this->createForm(PersonType::class, $person);
+        $teams = $teamRepository->findAll();
+        $form->add('teams', null, array(
+            'choices'  => $teams,
+        ));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -57,9 +62,13 @@ class PersonController extends AbstractController
     /**
      * @Route("/{id}/edit", name="person_edit", methods="GET|POST")
      */
-    public function edit(Request $request, Person $person): Response
+    public function edit(Request $request, Person $person, TeamRepository $teamRepository): Response
     {
         $form = $this->createForm(PersonType::class, $person);
+        $teams = $teamRepository->findAll();
+        $form->add('teams', null, array(
+            'choices'  => $teams,
+        ));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

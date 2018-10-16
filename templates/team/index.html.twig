@@ -12,6 +12,7 @@
                 <th>Name</th>
                 <th>Start_time</th>
                 <th>End_time</th>
+                <th>People</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -22,6 +23,11 @@
                 <td>{{ team.name }}</td>
                 <td>{{ team.startTime ? team.startTime|date('H:i:s') : '' }}</td>
                 <td>{{ team.endTime ? team.endTime|date('H:i:s') : '' }}</td>
+                <td>
+                {% for person in team.getPerson %}
+                    {{ person }}
+                {% endfor %}
+                </td>
                 <td>
                     <a href="{{ path('team_show', {'id': team.id}) }}">show</a>
                     <a href="{{ path('team_edit', {'id': team.id}) }}">edit</a>
