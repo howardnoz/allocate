@@ -1,4 +1,7 @@
-run: start-mysql
+run-continue: start-mysql
+	php bin/console server:run
+
+run-new: create-mysql
 	php bin/console server:run
 
 create-mysql:
