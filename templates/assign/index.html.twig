@@ -15,7 +15,6 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
-                <th>Teams</th>
             </tr>
         </thead>
         <tbody>
@@ -23,11 +22,6 @@
             <tr>
                 <td>{{ person.id }}</td>
                 <td>{{ person.name }}</td>
-                <td>
-                    {% for team in person.getTeams %}
-                        {{ team }}
-                    {% endfor %}
-                </td>
             </tr>
         {% else %}
             <tr>
@@ -37,33 +31,22 @@
         </tbody>
     </table>
 
-    <h1><a href="{{ path('team_index') }}">Teams</a></h1>
+<h1><a href="{{ path('team_index') }}">Teams</a></h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>People</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for team in teams %}
-            <tr>
-                <td>{{ team.id }}</td>
-                <td>{{ team.name }}</td>
-                <td>
-                    {% for person in team.getPerson %}
-                        {{ person }}
-                    {% endfor %}
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+<div>
+    {% for team in teams %}
+    <div>
+        {{ team.name }}
+
+        <br />
+
+        <select multiple>
+            {% for person in team.getPerson %}
+                <option>{{ person }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    {% endfor %}
+</div>
 
 {% endblock %}
